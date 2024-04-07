@@ -1,0 +1,59 @@
+_BASE_: "../Base_PoseTrack17.yaml"
+EXPERIMENT_NAME: 'TemporalDifferenceModeling10'
+WORKERS: 3
+#PRINT_FREQ: 10
+GPUS: (0,)
+OUTPUT_DIR: './output/DTDMNRV15_2/'
+
+DISTANCE: 3
+#CORE_FUNCTION: AlignmentMIFunction_Term6
+CORE_FUNCTION: DifferenceFunctionMI10
+DATASET:
+  NAME: "PoseTrack_Difference"
+
+MODEL:
+  NAME: DTDMNRV15_10
+  PRETRAINED: './DcPose_supp_files/pretrained_models/out_model.pth'
+  BACKBONE_PRETRAINED: './DcPose_supp_files/pretrained_models/out_model.pth'
+LOSS:
+  HEATMAP_MSE:
+    USE: true
+    WEIGHT: 1.0
+
+TRAIN:
+  AUTO_RESUME: true
+  SAVE_MODEL_PER_EPOCH: 1
+  BATCH_SIZE_PER_GPU: 30
+  LR: 1e-3
+  END_EPOCH: 20
+  OPTIMIZER: adamw
+  MILESTONES:
+    - 10
+    - 20
+    - 30
+    - 36
+  LR_STEP:
+    - 6
+    - 12
+    - 18
+    - 26
+VAL:
+  BATCH_SIZE_PER_GPU: 64
+#  USE_GT_BBOX:
+  FLIP_VAL: true
+  FLIP: true
+#  COCO_BBOX_FILE: './DcPose_supp_files/posetrack17_precomputed_boxes/val_boxes.json'
+  COCO_BBOX_FILE: './DcPose_supp_files/posetrack17_precomputed_boxes/ConvNext_posetrack17_val_boxes.json'
+#  COCO_BBOX_FILE: '/media/Z/chenhaoming/DcPose_supp_files/posetrack17_precomputed_boxes/DetectoRS/val_boxes.json'
+#  COCO_BBOX_FILE: '/media/Z/frunyang/FAMI-Pose/box/ConvNext_posetrack17_val_boxes.json'
+#  MODEL_FILE: ''
+  MODEL_FILE: '/home/lf/diff/Code/output/DTDMNRV15_2/TemporalDifferenceModeling10/PoseTrack_Difference17/bbox_1.25_rot_45_scale_0.65-1.35_MseLoss_1.0/checkpoints/epoch_16_state.pth'
+#  MODEL_FILE: '/home/lf/diff/Code/output/DTDMNRV15_2/TemporalDifferenceModeling6/PoseTrack_Difference17/bbox_1.25_rot_45_scale_0.65-1.35_MseLoss_1.0/checkpoints/epoch_19_state.pth'
+
+TEST:
+  BATCH_SIZE_PER_GPU: 64
+  MODEL_FILE: './checkpoints/posetrack17/epoch_18_state.pth'
+
+DEBUG:
+  VIS_SKELETON: false
+  VIS_BBOX: false

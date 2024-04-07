@@ -1,0 +1,35 @@
+_BASE_: "../Base_PoseTrack17_subset.yaml"
+EXPERIMENT_NAME: 'UL_Subset'
+WORKERS: 4
+GPUS: (0,)
+OUTPUT_DIR: './output/UL-DCPose+/'
+DISTANCE: 3
+CORE_FUNCTION: SubSetFunction
+
+DATASET:
+  NAME: "PoseTrack_Difference_sub"
+
+MODEL:
+  NAME: DTDMNRV15_6
+  PRETRAINED: './DcPose_supp_files/pretrained_models/out_model.pth'
+  BACKBONE_PRETRAINED: './DcPose_supp_files/pretrained_models/out_model.pth'
+LOSS:
+  HEATMAP_MSE:
+    USE: true
+    WEIGHT: 1.0
+
+VAL:
+  FLIP_VAL: True
+  FLIP: True
+  BATCH_SIZE_PER_GPU: 45
+  MODEL_FILE: '/home/lf/diff/Code/output/DTDMNRV15_2/TemporalDifferenceModeling6/PoseTrack_Difference17/bbox_1.25_rot_45_scale_0.65-1.35_MseLoss_1.0/checkpoints/epoch_1_state.pth'
+#  MODEL_FILE: '/media/T/chenhaoming/Code/DcPose_supp_files/pretrained_models/m-DCPose/epoch_31_state.pth'
+  ANNOT_DIR: './DcPose_supp_files/posetrack17_annotation_dirs/Subset_DCPose828_MDCPose_0.01/val/'
+  USE_GT_BBOX: true
+TEST:
+  BATCH_SIZE_PER_GPU: 30
+  MODEL_FILE: '/media/T/chenhaoming/Code/DcPose_supp_files/pretrained_models/m-DCPose/epoch_31_state.pth'
+
+DEBUG:
+  VIS_SKELETON: false
+  VIS_BBOX: false
