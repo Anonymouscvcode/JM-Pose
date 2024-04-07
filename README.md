@@ -6,6 +6,12 @@ Human pose estimation in videos has long been a compelling yet challenging task 
   
   To circumvent this problem, we propose a novel joint-motion mutual learning framework for pose estimation, which effectively concentrates on both local joint dependency and global pixel-level motion dynamics. Specifically, we introduce a context-aware joint learner that leverages initial heatmaps and motion flows to retrieve local joint features. Considering that these two features (i.e., joint features and motion flows) are complementary, we further propose a progressive joint-motion mutual learning that synergistically exchanges information between local joint features and global pixel-level motion flows, improving the capability of the model. More importantly, to capture more diverse joint and motion cues, we theoretically analyze and propose an information orthogonality objective between them. Empirical experiments show our method outperforms prior arts on three challenging benchmarks.
 
-## Method Overview
+## Method overview
 
-![image]()
+![image](https://github.com/Anonymouscvcode/JM-Pose/blob/main/figs/fig2_mm_new.jpg)
+
+## Visualization comparison
+![image](https://github.com/Anonymouscvcode/JM-Pose/blob/main/figs/fig44.jpg)
+
+## More visual results
+![image](https://github.com/Anonymouscvcode/JM-Pose/blob/main/figs/fig6_visual.jpg)
